@@ -1,30 +1,31 @@
+'use client'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { items } from "./items"
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Icons } from "../icons";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
-  activeTab?: string
-  onTabClick: (tabPath: string) => void;
 }
 
-export function Sidebar({ className, activeTab, onTabClick }: SidebarProps) {
+export function Sidebar({ className }: SidebarProps) {
+  const pathname = usePathname();
   return (
     <div className={cn("pb-12", className)}>
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">
-          {/* <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-            Discover
-          </h2> */}
+          <h2 className="mb-4 px-4 text-lg font-semibold tracking-tight">
+            <Icons.logo className="h-6 mx-auto" />
+          </h2>
           <div className="space-y-1">
             {
               items.map((item, i) => (
                 <Button
-                  variant={item.path === activeTab ? "secondary" : "ghost"} // Set the variant based on the active property
+                  variant={item.path === pathname ? "secondary" : "ghost"} // Set the variant based on the active property
                   className="w-full justify-start p-4 h-auto capitalize"
                   key={`item-${i}`}
                   asChild
-                  onClick={() => onTabClick(item.path)}
                 >
                   <Link href={item.path}>
                     {item.icon && <item.icon className="mr-2 h-5 w-5" />}

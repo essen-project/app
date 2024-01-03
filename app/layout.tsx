@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Sidebar } from "@/components/sidenav/side-nav";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Mail } from "@/components/mail";
+import { accounts, mails } from "@/components/data";
+import { cookies } from "next/headers"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +21,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const layout = cookies().get("react-resizable-panels:layout")
+  const collapsed = cookies().get("react-resizable-panels:collapsed")
+
+  const defaultLayout = layout && layout.value ? JSON.parse(layout.value) : undefined;
+  const defaultCollapsed = collapsed && collapsed.value ? JSON.parse(collapsed.value) : undefined;
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
@@ -24,7 +35,37 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          {/* <div className="">
+            <div className="bg-background">
+              <div className="flex grow overflow-auto w-screen lg:w-full relative">
+                <Sidebar
+                  className="flex-none flex flex-column w-[256px] lg:flex lg:flex-[1_0_auto]"
+                />
+                <Separator className="hidden lg:block" orientation="vertical" />
+                {/* <SidebarMobile className="lg:hidden" /> 
+                <ScrollArea style={
+                  {
+                    height: 'calc(100vh - 40px)',
+                    width: '100vw',
+                  }
+                }>
+                  <div className="relative col-span-3 lg:col-span-4 lg:border-l w-screen lg:w-full px-4 py-6 lg:px-8 pb-[100px] lg:pb-6">
+                    <div className="h-full">
+                      {children}
+                    </div>
+                  </div>
+                </ScrollArea>
+
+              </div>
+            </div>
+          </div> */}
+          <Mail
+            accounts={accounts}
+            mails={mails}
+            defaultLayout={defaultLayout}
+            defaultCollapsed={defaultCollapsed}
+            navCollapsedSize={4}
+          />
         </ThemeProvider>
       </body>
     </html>

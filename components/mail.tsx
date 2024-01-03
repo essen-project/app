@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/tabs"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
+import { Icons } from "./icons"
 
 interface MailProps {
      accounts: {
@@ -101,21 +102,19 @@ export function Mail({
                               isCollapsed={isCollapsed}
                               links={[
                                    {
-                                        title: "Inbox",
-                                        label: "128",
-                                        icon: Inbox,
+                                        title: "Dasboard",
+                                        icon: Icons.dashboard,
                                         variant: "default",
                                    },
                                    {
-                                        title: "Drafts",
-                                        label: "9",
-                                        icon: File,
+                                        title: "Projects",
+                                        icon: Icons.presentation,
                                         variant: "ghost",
                                    },
                                    {
-                                        title: "Sent",
+                                        title: "Tasks",
                                         label: "",
-                                        icon: Send,
+                                        icon: Icons.tasks,
                                         variant: "ghost",
                                    },
                                    {
@@ -179,7 +178,7 @@ export function Mail({
                     <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
                          <Tabs defaultValue="all">
                               <div className="flex items-center px-4 py-2">
-                                   <h1 className="text-xl font-bold">Inbox</h1>
+                                   <h1 className="text-xl font-bold">Dasboard</h1>
                                    <TabsList className="ml-auto">
                                         <TabsTrigger value="all" className="text-zinc-600 dark:text-zinc-200">All mail</TabsTrigger>
                                         <TabsTrigger value="unread" className="text-zinc-600 dark:text-zinc-200">Unread</TabsTrigger>

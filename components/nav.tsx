@@ -16,7 +16,7 @@ interface NavProps {
      links: {
           title: string
           label?: string
-          icon: LucideIcon
+          icon: LucideIcon | React.ComponentType
           variant: "default" | "ghost"
      }[]
 }
